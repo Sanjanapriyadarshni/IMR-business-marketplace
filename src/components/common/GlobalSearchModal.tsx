@@ -60,9 +60,10 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
     const matchedCountries = countries.filter((c) => {
       return (
         c.name.toLowerCase().includes(q) ||
+        c.code.toLowerCase().includes(q) ||
+        c.region.toLowerCase().includes(q) ||
         c.popularExports.some((e) => e.toLowerCase().includes(q)) ||
-        c.popularImports.some((i) => i.toLowerCase().includes(q)) ||
-        c.majorIndustries.some((m) => m.toLowerCase().includes(q))
+        c.popularImports.some((i) => i.toLowerCase().includes(q))
       );
     });
 
@@ -96,24 +97,24 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-8 sm:pt-16 p-4 bg-slate-950/85 backdrop-blur-md animate-in fade-in">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-3xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-8 sm:pt-16 p-4 bg-[#171717]/65 backdrop-blur-md animate-in fade-in">
+      <div className="bg-[#FFFDF8] border border-[#D8D2C7] rounded-3xl max-w-3xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden text-[#171717]">
         {/* Search Input Header */}
-        <div className="p-4 sm:p-5 border-b border-slate-800 bg-slate-900/90">
+        <div className="p-4 sm:p-6 border-b border-[#D8D2C7] bg-[#FFFDF8]">
           <div className="relative flex items-center">
-            <Search className="w-5 h-5 text-teal-400 absolute left-4 pointer-events-none" />
+            <Search className="w-5 h-5 text-[#FF5A36] absolute left-4 pointer-events-none" />
             <input
               type="text"
               autoFocus
               placeholder="Search ideas, HS codes, export products, verified suppliers, countries..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-700/80 rounded-xl pl-12 pr-10 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-teal-500 transition-colors shadow-inner"
+              className="w-full bg-[#F3EFE7] border border-[#D8D2C7] rounded-2xl pl-12 pr-10 py-3.5 text-sm text-[#171717] placeholder:text-[#6B6B63] focus:outline-none focus:border-[#FF5A36] transition-colors"
             />
             {query && (
               <button
                 onClick={() => setQuery('')}
-                className="absolute right-3 text-slate-400 hover:text-white p-1"
+                className="absolute right-3 text-[#6B6B63] hover:text-[#171717] p-1"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -121,15 +122,15 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
           </div>
 
           {/* Quick entity pills */}
-          <div className="flex items-center gap-2 mt-3 overflow-x-auto no-scrollbar text-xs">
+          <div className="flex items-center gap-2 mt-4 overflow-x-auto no-scrollbar text-xs">
             {(['all', 'ideas', 'products', 'countries', 'partners', 'tech'] as const).map((filter) => (
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
-                className={`px-3 py-1.5 rounded-lg font-medium capitalize whitespace-nowrap transition-all ${
+                className={`px-3.5 py-1.5 rounded-full font-mono text-xs font-semibold capitalize whitespace-nowrap transition-all ${
                   activeFilter === filter
-                    ? 'bg-teal-500 text-slate-950 shadow-md font-semibold'
-                    : 'bg-slate-800/80 text-slate-300 hover:bg-slate-800 hover:text-white'
+                    ? 'bg-[#171717] text-[#FFFDF8] shadow-sm'
+                    : 'bg-[#F3EFE7] text-[#6B6B63] hover:text-[#171717] border border-[#D8D2C7]'
                 }`}
               >
                 {filter === 'tech' ? 'Frontier Tech' : filter}
@@ -139,7 +140,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="bg-slate-800 text-slate-300 text-xs rounded-lg px-2.5 py-1.5 border border-slate-700 focus:outline-none focus:border-teal-500 ml-auto shrink-0"
+              className="bg-[#F3EFE7] text-[#171717] text-xs font-mono rounded-full px-3 py-1.5 border border-[#D8D2C7] focus:outline-none focus:border-[#FF5A36] ml-auto shrink-0"
             >
               <option value="all">All 22 Categories</option>
               {BUSINESS_CATEGORIES.map((cat) => (
@@ -152,25 +153,25 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
         </div>
 
         {/* Search Results Area */}
-        <div className="p-5 overflow-y-auto space-y-6 flex-1 text-sm">
+        <div className="p-6 overflow-y-auto space-y-6 flex-1 text-sm">
           {/* Ideas Section */}
           {(activeFilter === 'all' || activeFilter === 'ideas') && filteredResults.ideas.length > 0 && (
-            <div className="space-y-2.5">
-              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-teal-400">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-xs font-mono font-bold uppercase tracking-wider text-[#FF5A36]">
                 <span className="flex items-center gap-1.5">
-                  <Lightbulb className="w-3.5 h-3.5" /> Business Ideas ({filteredResults.ideas.length})
+                  <Lightbulb className="w-3.5 h-3.5" /> Commercial Ideas ({filteredResults.ideas.length})
                 </span>
                 <button
                   onClick={() => {
                     setActiveTab('ideas');
                     onClose();
                   }}
-                  className="hover:underline flex items-center gap-1 normal-case text-slate-400"
+                  className="hover:underline flex items-center gap-1 normal-case text-[#6B6B63]"
                 >
                   View all in marketplace <ArrowRight className="w-3 h-3" />
                 </button>
               </div>
-              <div className="grid grid-cols-1 gap-2">
+              <div className="grid grid-cols-1 gap-2.5">
                 {filteredResults.ideas.map((idea) => (
                   <div
                     key={idea.id}
@@ -178,23 +179,23 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
                       setActiveTab('ideas');
                       onClose();
                     }}
-                    className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 hover:border-teal-500/50 cursor-pointer transition-all flex items-start justify-between gap-3 group"
+                    className="p-4 rounded-2xl bg-[#F3EFE7] border border-[#D8D2C7] hover:border-[#FF5A36] cursor-pointer transition-all flex items-start justify-between gap-3 group"
                   >
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-300 border border-teal-500/20 font-medium">
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#FFFDF8] text-[#171717] border border-[#D8D2C7] font-semibold">
                           {idea.category}
                         </span>
-                        <span className="text-xs text-slate-400">Target: {idea.targetCountry}</span>
+                        <span className="text-xs text-[#6B6B63] font-mono">Target: {idea.targetCountry}</span>
                       </div>
-                      <h4 className="font-semibold text-slate-100 group-hover:text-teal-300 transition-colors mt-1">
+                      <h4 className="font-editorial text-base font-bold text-[#171717] group-hover:text-[#FF5A36] transition-colors mt-1.5">
                         {idea.title}
                       </h4>
-                      <p className="text-xs text-slate-400 mt-0.5 line-clamp-1">{idea.tagline}</p>
+                      <p className="text-xs text-[#6B6B63] mt-0.5 line-clamp-1">{idea.tagline}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <span className="text-xs font-bold text-amber-400 block">{idea.investmentFormatted}</span>
-                      <span className="text-[10px] text-slate-500 uppercase">{idea.dealType.replace('_', ' ')}</span>
+                      <span className="text-xs font-mono font-bold text-[#171717] block">{idea.investmentFormatted}</span>
+                      <span className="text-[10px] font-mono text-[#FF5A36] uppercase">{idea.dealType.replace('_', ' ')}</span>
                     </div>
                   </div>
                 ))}
@@ -204,22 +205,22 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
 
           {/* Trade Products Section */}
           {(activeFilter === 'all' || activeFilter === 'products') && filteredResults.products.length > 0 && (
-            <div className="space-y-2.5">
-              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-emerald-400">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-xs font-mono font-bold uppercase tracking-wider text-[#171717]">
                 <span className="flex items-center gap-1.5">
-                  <Package className="w-3.5 h-3.5" /> Export & Import Listings ({filteredResults.products.length})
+                  <Package className="w-3.5 h-3.5 text-[#A8C7B5]" /> Export & Import Goods ({filteredResults.products.length})
                 </span>
                 <button
                   onClick={() => {
                     setActiveTab('trade');
                     onClose();
                   }}
-                  className="hover:underline flex items-center gap-1 normal-case text-slate-400"
+                  className="hover:underline flex items-center gap-1 normal-case text-[#6B6B63]"
                 >
                   View in Global Trade <ArrowRight className="w-3 h-3" />
                 </button>
               </div>
-              <div className="grid grid-cols-1 gap-2">
+              <div className="grid grid-cols-1 gap-2.5">
                 {filteredResults.products.map((prod) => (
                   <div
                     key={prod.id}
@@ -227,35 +228,35 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
                       setActiveTab('trade');
                       onClose();
                     }}
-                    className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 hover:border-emerald-500/50 cursor-pointer transition-all flex items-center justify-between gap-3 group"
+                    className="p-3.5 rounded-2xl bg-[#F3EFE7] border border-[#D8D2C7] hover:border-[#FF5A36] cursor-pointer transition-all flex items-center justify-between gap-3 group"
                   >
                     <div className="flex items-center gap-3">
                       <img
                         src={prod.image}
                         alt={prod.name}
-                        className="w-12 h-12 rounded-lg object-cover border border-slate-700"
+                        className="w-12 h-12 rounded-xl object-cover border border-[#D8D2C7]"
                       />
                       <div>
                         <div className="flex items-center gap-2">
                           <span
-                            className={`text-[10px] px-1.5 py-0.5 rounded uppercase font-bold ${
+                            className={`text-[10px] font-mono px-2 py-0.5 rounded uppercase font-bold ${
                               prod.tradeType === 'export'
-                                ? 'bg-emerald-500/20 text-emerald-300'
-                                : 'bg-blue-500/20 text-blue-300'
+                                ? 'bg-[#A8C7B5]/30 text-[#171717]'
+                                : 'bg-[#FF5A36]/15 text-[#FF5A36]'
                             }`}
                           >
                             {prod.tradeType}
                           </span>
-                          <span className="text-xs text-slate-400 font-mono">HS {prod.hsCode}</span>
+                          <span className="text-xs text-[#6B6B63] font-mono">HS {prod.hsCode}</span>
                         </div>
-                        <h4 className="font-semibold text-slate-100 group-hover:text-emerald-300 transition-colors mt-0.5">
+                        <h4 className="font-bold text-[#171717] group-hover:text-[#FF5A36] transition-colors mt-1 text-sm">
                           {prod.name}
                         </h4>
-                        <span className="text-xs text-slate-400">Origin: {prod.originCountry} • MOQ: {prod.minOrderQty}</span>
+                        <span className="text-xs text-[#6B6B63]">Origin: {prod.originCountry} • MOQ: {prod.minOrderQty}</span>
                       </div>
                     </div>
                     <div className="text-right shrink-0">
-                      <span className="text-xs font-semibold text-white">{prod.priceRange}</span>
+                      <span className="text-xs font-mono font-bold text-[#171717]">{prod.priceRange}</span>
                     </div>
                   </div>
                 ))}
@@ -265,22 +266,22 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
 
           {/* Countries Section */}
           {(activeFilter === 'all' || activeFilter === 'countries') && filteredResults.countries.length > 0 && (
-            <div className="space-y-2.5">
-              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-amber-400">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-xs font-mono font-bold uppercase tracking-wider text-[#171717]">
                 <span className="flex items-center gap-1.5">
-                  <Globe className="w-3.5 h-3.5" /> Global Trade Markets ({filteredResults.countries.length})
+                  <Globe className="w-3.5 h-3.5 text-[#FF5A36]" /> Global Trade Markets ({filteredResults.countries.length})
                 </span>
                 <button
                   onClick={() => {
                     setActiveTab('countries');
                     onClose();
                   }}
-                  className="hover:underline flex items-center gap-1 normal-case text-slate-400"
+                  className="hover:underline flex items-center gap-1 normal-case text-[#6B6B63]"
                 >
                   Country Explorer <ArrowRight className="w-3 h-3" />
                 </button>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {filteredResults.countries.map((country) => (
                   <div
                     key={country.code}
@@ -289,12 +290,12 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
                       setActiveTab('countries');
                       onClose();
                     }}
-                    className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 hover:border-amber-500/50 cursor-pointer transition-all flex items-center gap-3"
+                    className="p-3.5 rounded-2xl bg-[#F3EFE7] border border-[#D8D2C7] hover:border-[#FF5A36] cursor-pointer transition-all flex items-center gap-3"
                   >
                     <span className="text-3xl">{country.flag}</span>
                     <div className="min-w-0">
-                      <h4 className="font-semibold text-slate-100">{country.name}</h4>
-                      <p className="text-xs text-slate-400 truncate">
+                      <h4 className="font-bold text-[#171717] text-sm">{country.name}</h4>
+                      <p className="text-xs text-[#6B6B63] truncate">
                         Top: {country.popularExports.slice(0, 2).join(', ')}
                       </p>
                     </div>
@@ -306,13 +307,13 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
 
           {/* Partners Section */}
           {(activeFilter === 'all' || activeFilter === 'partners') && filteredResults.partners.length > 0 && (
-            <div className="space-y-2.5">
-              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-blue-400">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-xs font-mono font-bold uppercase tracking-wider text-[#171717]">
                 <span className="flex items-center gap-1.5">
-                  <Users className="w-3.5 h-3.5" /> Verified Business Partners ({filteredResults.partners.length})
+                  <Users className="w-3.5 h-3.5 text-[#A8C7B5]" /> Verified Stakeholder Personas ({filteredResults.partners.length})
                 </span>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {filteredResults.partners.map((partner) => (
                   <div
                     key={partner.id}
@@ -320,62 +321,18 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
                       setActiveTab('profile');
                       onClose();
                     }}
-                    className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 hover:border-blue-500/50 cursor-pointer transition-all flex items-center gap-3"
+                    className="p-3.5 rounded-2xl bg-[#F3EFE7] border border-[#D8D2C7] hover:border-[#FF5A36] cursor-pointer transition-all flex items-center gap-3"
                   >
                     <img
                       src={partner.avatar}
                       alt={partner.name}
-                      className="w-10 h-10 rounded-full object-cover border border-slate-700"
+                      className="w-10 h-10 rounded-full object-cover border border-[#D8D2C7]"
                     />
                     <div className="min-w-0">
-                      <h4 className="font-semibold text-slate-100 truncate">{partner.name}</h4>
-                      <p className="text-xs text-slate-400 capitalize truncate">
+                      <h4 className="font-bold text-[#171717] text-sm truncate">{partner.name}</h4>
+                      <p className="text-xs text-[#6B6B63] font-mono capitalize truncate">
                         {partner.role.replace(/_/g, ' ')} • {partner.country}
                       </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Frontier Tech Section */}
-          {(activeFilter === 'all' || activeFilter === 'tech') && filteredResults.tech.length > 0 && (
-            <div className="space-y-2.5">
-              <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-purple-400">
-                <span className="flex items-center gap-1.5">
-                  <Atom className="w-3.5 h-3.5" /> Frontier & Advanced Tech ({filteredResults.tech.length})
-                </span>
-                <button
-                  onClick={() => {
-                    setActiveTab('advanced_tech');
-                    onClose();
-                  }}
-                  className="hover:underline flex items-center gap-1 normal-case text-slate-400"
-                >
-                  Explore Section <ArrowRight className="w-3 h-3" />
-                </button>
-              </div>
-              <div className="grid grid-cols-1 gap-2">
-                {filteredResults.tech.map((item) => (
-                  <div
-                    key={item.id}
-                    onClick={() => {
-                      setActiveTab('advanced_tech');
-                      onClose();
-                    }}
-                    className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 hover:border-purple-500/50 cursor-pointer transition-all flex items-center justify-between"
-                  >
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 font-medium">
-                          {item.category}
-                        </span>
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">
-                          {item.scientificStatus}
-                        </span>
-                      </div>
-                      <h4 className="font-semibold text-slate-100 mt-1">{item.title}</h4>
                     </div>
                   </div>
                 ))}
@@ -389,10 +346,10 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
             filteredResults.countries.length === 0 &&
             filteredResults.partners.length === 0 &&
             filteredResults.tech.length === 0 && (
-              <div className="text-center py-12 text-slate-500">
+              <div className="text-center py-12 text-[#6B6B63]">
                 <Search className="w-10 h-10 mx-auto mb-2 opacity-30" />
                 <p className="text-sm font-medium">No matches found for "{query}"</p>
-                <p className="text-xs text-slate-600 mt-1">Try searching for "spices", "India", "cold storage", "solar", or "HS 0910"</p>
+                <p className="text-xs text-[#6B6B63] mt-1">Try searching for "spices", "India", "cold storage", "solar", or "HS 0910"</p>
               </div>
             )}
         </div>

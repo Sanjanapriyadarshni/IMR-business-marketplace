@@ -65,87 +65,90 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
       stage: formData.stage,
       dealType: formData.dealType,
       dealTermsSummary: formData.dealTermsSummary,
-      isAdvancedTech: formData.category === 'Anti-Gravity / Advanced Technology Concepts' || formData.category === 'Future Technology',
-      scientificStatus: formData.category === 'Anti-Gravity / Advanced Technology Concepts' ? 'Speculative Concept' : undefined,
+      isAdvancedTech: false,
     });
 
     onClose();
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-md animate-in fade-in">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
-        {/* Header */}
-        <div className="p-5 border-b border-slate-800 bg-slate-900/90 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-teal-500/10 border border-teal-500/30 text-teal-400">
-              <Sparkles className="w-5 h-5" />
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-[#171717]/65 backdrop-blur-md animate-in fade-in">
+      <div className="bg-[#FFFDF8] border border-[#D8D2C7] rounded-3xl max-w-2xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden text-[#171717]">
+        {/* Modal Header */}
+        <div className="p-6 border-b border-[#D8D2C7] bg-[#FFFDF8] flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-2xl bg-[#F3EFE7] border border-[#D8D2C7] text-[#171717]">
+              <Sparkles className="w-5 h-5 text-[#FF5A36]" />
             </div>
             <div>
-              <h3 className="font-bold text-base text-white">Publish Business Idea</h3>
-              <p className="text-xs text-slate-400">Find co-founders, license your concept, or raise capital</p>
+              <h3 className="font-editorial text-2xl font-bold text-[#171717]">
+                Publish Business Idea Canvas
+              </h3>
+              <p className="text-xs text-[#6B6B63] font-mono">
+                Present your concept to global investors, co-founders & licensees
+              </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+            className="p-2 rounded-xl text-[#6B6B63] hover:text-[#171717] hover:bg-[#F3EFE7] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Multi-step progress */}
-        <div className="px-6 py-2.5 bg-slate-950/50 border-b border-slate-800 flex items-center justify-between text-xs">
+        {/* Stepper Bar */}
+        <div className="px-6 py-3 bg-[#F3EFE7] border-b border-[#D8D2C7] flex items-center justify-between text-xs font-mono">
           <div className="flex items-center gap-2">
             <span
               className={`w-5 h-5 rounded-full flex items-center justify-center font-bold ${
-                step >= 1 ? 'bg-teal-500 text-slate-950' : 'bg-slate-800 text-slate-400'
+                step >= 1 ? 'bg-[#171717] text-[#FFFDF8]' : 'bg-[#EBE5DA] text-[#6B6B63]'
               }`}
             >
               1
             </span>
-            <span className={step === 1 ? 'text-white font-medium' : 'text-slate-400'}>
+            <span className={step === 1 ? 'text-[#171717] font-bold' : 'text-[#6B6B63]'}>
               Core Concept
             </span>
           </div>
-          <div className="h-0.5 flex-1 mx-3 bg-slate-800">
-            <div className={`h-full bg-teal-500 transition-all ${step === 1 ? 'w-0' : step === 2 ? 'w-1/2' : 'w-full'}`} />
+          <div className="h-0.5 flex-1 mx-3 bg-[#D8D2C7]">
+            <div className={`h-full bg-[#171717] transition-all ${step === 1 ? 'w-0' : step === 2 ? 'w-1/2' : 'w-full'}`} />
           </div>
           <div className="flex items-center gap-2">
             <span
               className={`w-5 h-5 rounded-full flex items-center justify-center font-bold ${
-                step >= 2 ? 'bg-teal-500 text-slate-950' : 'bg-slate-800 text-slate-400'
+                step >= 2 ? 'bg-[#171717] text-[#FFFDF8]' : 'bg-[#EBE5DA] text-[#6B6B63]'
               }`}
             >
               2
             </span>
-            <span className={step === 2 ? 'text-white font-medium' : 'text-slate-400'}>
+            <span className={step === 2 ? 'text-[#171717] font-bold' : 'text-[#6B6B63]'}>
               Market & Skills
             </span>
           </div>
-          <div className="h-0.5 flex-1 mx-3 bg-slate-800">
-            <div className={`h-full bg-teal-500 transition-all ${step < 3 ? 'w-0' : 'w-full'}`} />
+          <div className="h-0.5 flex-1 mx-3 bg-[#D8D2C7]">
+            <div className={`h-full bg-[#171717] transition-all ${step < 3 ? 'w-0' : 'w-full'}`} />
           </div>
           <div className="flex items-center gap-2">
             <span
               className={`w-5 h-5 rounded-full flex items-center justify-center font-bold ${
-                step >= 3 ? 'bg-teal-500 text-slate-950' : 'bg-slate-800 text-slate-400'
+                step >= 3 ? 'bg-[#171717] text-[#FFFDF8]' : 'bg-[#EBE5DA] text-[#6B6B63]'
               }`}
             >
               3
             </span>
-            <span className={step === 3 ? 'text-white font-medium' : 'text-slate-400'}>
+            <span className={step === 3 ? 'text-[#171717] font-bold' : 'text-[#6B6B63]'}>
               Deal & Terms
             </span>
           </div>
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} className="p-6 overflow-y-auto space-y-4 text-xs sm:text-sm flex-1">
+        <form onSubmit={handleSubmit} className="p-6 overflow-y-auto space-y-4 text-xs sm:text-sm flex-1 text-[#171717]">
           {step === 1 && (
             <div className="space-y-4 animate-in fade-in">
               <div>
-                <label className="text-slate-300 font-semibold block mb-1">
+                <label className="text-[#6B6B63] font-mono uppercase font-semibold block mb-1">
                   Business Idea Title *
                 </label>
                 <input
@@ -154,12 +157,12 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
                   placeholder="e.g. Modular Solar Cold Rooms for Smallholder Farmers"
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-teal-500"
+                  className="w-full bg-[#F3EFE7] border border-[#D8D2C7] rounded-xl px-3.5 py-2.5 text-[#171717] focus:outline-none focus:border-[#FF5A36]"
                 />
               </div>
 
               <div>
-                <label className="text-slate-300 font-semibold block mb-1">
+                <label className="text-[#6B6B63] font-mono uppercase font-semibold block mb-1">
                   One-Line Hook / Tagline *
                 </label>
                 <input
@@ -168,19 +171,19 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
                   placeholder="e.g. Zero-electricity cold preservation preventing produce spoilage"
                   value={formData.tagline}
                   onChange={(e) => setFormData({ ...formData, tagline: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-teal-500"
+                  className="w-full bg-[#F3EFE7] border border-[#D8D2C7] rounded-xl px-3.5 py-2.5 text-[#171717] focus:outline-none focus:border-[#FF5A36]"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-slate-300 font-semibold block mb-1">
+                  <label className="text-[#6B6B63] font-mono uppercase font-semibold block mb-1">
                     Industry Category *
                   </label>
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value as BusinessCategory })}
-                    className="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-teal-500"
+                    className="w-full bg-[#F3EFE7] border border-[#D8D2C7] rounded-xl px-3.5 py-2.5 text-[#171717] focus:outline-none focus:border-[#FF5A36]"
                   >
                     {BUSINESS_CATEGORIES.map((c) => (
                       <option key={c} value={c}>
@@ -191,13 +194,13 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="text-slate-300 font-semibold block mb-1">
+                  <label className="text-[#6B6B63] font-mono uppercase font-semibold block mb-1">
                     Current Stage *
                   </label>
                   <select
                     value={formData.stage}
                     onChange={(e) => setFormData({ ...formData, stage: e.target.value as DevelopmentStage })}
-                    className="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-teal-500"
+                    className="w-full bg-[#F3EFE7] border border-[#D8D2C7] rounded-xl px-3.5 py-2.5 text-[#171717] focus:outline-none focus:border-[#FF5A36]"
                   >
                     <option value="concept">Idea / Concept Stage</option>
                     <option value="research_prototype">Research & Prototype</option>
@@ -209,7 +212,7 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
               </div>
 
               <div>
-                <label className="text-slate-300 font-semibold block mb-1">
+                <label className="text-[#6B6B63] font-mono uppercase font-semibold block mb-1">
                   The Specific Problem Being Solved *
                 </label>
                 <textarea
@@ -218,12 +221,12 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
                   placeholder="What friction, loss, or inefficiency does this solve?"
                   value={formData.problem}
                   onChange={(e) => setFormData({ ...formData, problem: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-700/80 rounded-xl p-3 text-white focus:outline-none focus:border-teal-500 resize-none"
+                  className="w-full bg-[#F3EFE7] border border-[#D8D2C7] rounded-xl p-3 text-[#171717] focus:outline-none focus:border-[#FF5A36] resize-none"
                 />
               </div>
 
               <div>
-                <label className="text-slate-300 font-semibold block mb-1">
+                <label className="text-[#6B6B63] font-mono uppercase font-semibold block mb-1">
                   The Proposed Solution & Innovation *
                 </label>
                 <textarea
@@ -232,7 +235,7 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
                   placeholder="How does your product, tech, or business model fix the problem?"
                   value={formData.solution}
                   onChange={(e) => setFormData({ ...formData, solution: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-700/80 rounded-xl p-3 text-white focus:outline-none focus:border-teal-500 resize-none"
+                  className="w-full bg-[#F3EFE7] border border-[#D8D2C7] rounded-xl p-3 text-[#171717] focus:outline-none focus:border-[#FF5A36] resize-none"
                 />
               </div>
             </div>
@@ -241,7 +244,7 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
           {step === 2 && (
             <div className="space-y-4 animate-in fade-in">
               <div>
-                <label className="text-slate-300 font-semibold block mb-1">
+                <label className="text-[#6B6B63] font-mono uppercase font-semibold block mb-1">
                   Full Business Description *
                 </label>
                 <textarea
@@ -250,13 +253,13 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
                   placeholder="Provide an overview of the operational model, supply chain, and execution roadmap..."
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-700/80 rounded-xl p-3 text-white focus:outline-none focus:border-teal-500 resize-none"
+                  className="w-full bg-[#F3EFE7] border border-[#D8D2C7] rounded-xl p-3 text-[#171717] focus:outline-none focus:border-[#FF5A36] resize-none"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-slate-300 font-semibold block mb-1">
+                  <label className="text-[#6B6B63] font-mono uppercase font-semibold block mb-1">
                     Target Country / Market *
                   </label>
                   <input
@@ -265,18 +268,18 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
                     placeholder="e.g. India, UAE, Global"
                     value={formData.targetCountry}
                     onChange={(e) => setFormData({ ...formData, targetCountry: e.target.value })}
-                    className="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-teal-500"
+                    className="w-full bg-[#F3EFE7] border border-[#D8D2C7] rounded-xl px-3.5 py-2.5 text-[#171717] focus:outline-none focus:border-[#FF5A36]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-slate-300 font-semibold block mb-1">
+                  <label className="text-[#6B6B63] font-mono uppercase font-semibold block mb-1">
                     Scalability Scope *
                   </label>
                   <select
                     value={formData.scalability}
                     onChange={(e) => setFormData({ ...formData, scalability: e.target.value as any })}
-                    className="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-teal-500"
+                    className="w-full bg-[#F3EFE7] border border-[#D8D2C7] rounded-xl px-3.5 py-2.5 text-[#171717] focus:outline-none focus:border-[#FF5A36]"
                   >
                     <option value="Local">Local (City / Cluster)</option>
                     <option value="Regional">Regional (State / Province)</option>
@@ -287,7 +290,7 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
               </div>
 
               <div>
-                <label className="text-slate-300 font-semibold block mb-1">
+                <label className="text-[#6B6B63] font-mono uppercase font-semibold block mb-1">
                   Target Customers & Buyer Persona *
                 </label>
                 <input
@@ -296,12 +299,12 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
                   placeholder="e.g. Farmer producer organizations, export distributors, tier-2 retailers"
                   value={formData.targetCustomers}
                   onChange={(e) => setFormData({ ...formData, targetCustomers: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-teal-500"
+                  className="w-full bg-[#F3EFE7] border border-[#D8D2C7] rounded-xl px-3.5 py-2.5 text-[#171717] focus:outline-none focus:border-[#FF5A36]"
                 />
               </div>
 
               <div>
-                <label className="text-slate-300 font-semibold block mb-1">
+                <label className="text-[#6B6B63] font-mono uppercase font-semibold block mb-1">
                   Required Skills & Co-Founder Roles (Comma separated)
                 </label>
                 <input
@@ -309,12 +312,12 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
                   placeholder="e.g. Chemical Engineering, Cold Chain Logistics, B2B Sales"
                   value={formData.requiredSkills}
                   onChange={(e) => setFormData({ ...formData, requiredSkills: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-teal-500"
+                  className="w-full bg-[#F3EFE7] border border-[#D8D2C7] rounded-xl px-3.5 py-2.5 text-[#171717] focus:outline-none focus:border-[#FF5A36]"
                 />
               </div>
 
               <div>
-                <label className="text-slate-300 font-semibold block mb-1">
+                <label className="text-[#6B6B63] font-mono uppercase font-semibold block mb-1">
                   Required Technology & Infrastructure
                 </label>
                 <input
@@ -322,7 +325,7 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
                   placeholder="e.g. Phase Change Materials, LoRaWAN IoT telemetry, Python backend"
                   value={formData.requiredTechnology}
                   onChange={(e) => setFormData({ ...formData, requiredTechnology: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-teal-500"
+                  className="w-full bg-[#F3EFE7] border border-[#D8D2C7] rounded-xl px-3.5 py-2.5 text-[#171717] focus:outline-none focus:border-[#FF5A36]"
                 />
               </div>
             </div>
@@ -332,8 +335,8 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
             <div className="space-y-4 animate-in fade-in">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-slate-300 font-semibold block mb-1">
-                    Required Investment ($ USD or base) *
+                  <label className="text-[#6B6B63] font-mono uppercase font-semibold block mb-1">
+                    Required Capital ($ USD or base) *
                   </label>
                   <input
                     type="number"
@@ -349,18 +352,18 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
                         ).toLocaleString()})`,
                       })
                     }
-                    className="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-teal-500"
+                    className="w-full bg-[#F3EFE7] border border-[#D8D2C7] rounded-xl px-3.5 py-2.5 text-[#171717] focus:outline-none focus:border-[#FF5A36]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-slate-300 font-semibold block mb-1">
+                  <label className="text-[#6B6B63] font-mono uppercase font-semibold block mb-1">
                     Deal Type Intent *
                   </label>
                   <select
                     value={formData.dealType}
                     onChange={(e) => setFormData({ ...formData, dealType: e.target.value as DealType })}
-                    className="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-teal-500 font-semibold text-teal-300"
+                    className="w-full bg-[#F3EFE7] border border-[#D8D2C7] rounded-xl px-3.5 py-2.5 text-[#171717] focus:outline-none focus:border-[#FF5A36] font-semibold text-[#FF5A36]"
                   >
                     <option value="partnership">Co-Founder / Equity Partnership</option>
                     <option value="licensing">Technology / Patent Licensing</option>
@@ -372,7 +375,7 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
               </div>
 
               <div>
-                <label className="text-slate-300 font-semibold block mb-1">
+                <label className="text-[#6B6B63] font-mono uppercase font-semibold block mb-1">
                   Expected Revenue Model *
                 </label>
                 <input
@@ -381,12 +384,12 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
                   placeholder="e.g. Hardware unit sale + 15% SaaS maintenance subscription"
                   value={formData.expectedRevenueModel}
                   onChange={(e) => setFormData({ ...formData, expectedRevenueModel: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-teal-500"
+                  className="w-full bg-[#F3EFE7] border border-[#D8D2C7] rounded-xl px-3.5 py-2.5 text-[#171717] focus:outline-none focus:border-[#FF5A36]"
                 />
               </div>
 
               <div>
-                <label className="text-slate-300 font-semibold block mb-1">
+                <label className="text-[#6B6B63] font-mono uppercase font-semibold block mb-1">
                   Commercial Terms Summary (Optional)
                 </label>
                 <textarea
@@ -394,21 +397,21 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
                   placeholder="e.g. Seeking 30% equity partner with manufacturing facility or $15k upfront license fee."
                   value={formData.dealTermsSummary}
                   onChange={(e) => setFormData({ ...formData, dealTermsSummary: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-700/80 rounded-xl p-3 text-white focus:outline-none focus:border-teal-500 resize-none"
+                  className="w-full bg-[#F3EFE7] border border-[#D8D2C7] rounded-xl p-3 text-[#171717] focus:outline-none focus:border-[#FF5A36] resize-none"
                 />
               </div>
 
               {/* IP & Disclaimer Checkbox */}
-              <div className="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+              <div className="p-3.5 rounded-2xl bg-[#F3EFE7] border border-[#D8D2C7] space-y-2">
                 <label className="flex items-start gap-2.5 cursor-pointer">
                   <input
                     type="checkbox"
                     required
                     checked={formData.acceptedDisclaimer}
                     onChange={(e) => setFormData({ ...formData, acceptedDisclaimer: e.target.checked })}
-                    className="mt-1 rounded border-slate-700 text-teal-500 focus:ring-0"
+                    className="mt-1 rounded border-[#D8D2C7] text-[#FF5A36] focus:ring-0"
                   />
-                  <span className="text-xs text-slate-300 leading-relaxed">
+                  <span className="text-xs text-[#6B6B63] leading-relaxed">
                     I confirm that this business idea is my original creation or intellectual property. I understand that IMR does not automatically guarantee commercial outcomes and recommends executing mutual NDAs before disclosing proprietary blueprints.
                   </span>
                 </label>
@@ -417,12 +420,12 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
           )}
 
           {/* Controls */}
-          <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
+          <div className="pt-3 border-t border-[#D8D2C7] flex items-center justify-between">
             {step > 1 ? (
               <button
                 type="button"
                 onClick={() => setStep((s) => s - 1)}
-                className="px-4 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-xs"
+                className="px-4 py-2 rounded-xl text-[#6B6B63] hover:text-[#171717] hover:bg-[#F3EFE7] font-semibold text-xs font-mono"
               >
                 Back
               </button>
@@ -434,14 +437,14 @@ export const PostIdeaModal: React.FC<PostIdeaModalProps> = ({
               <button
                 type="button"
                 onClick={() => setStep((s) => s + 1)}
-                className="px-5 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs transition-colors"
+                className="px-5 py-2.5 rounded-xl bg-[#171717] hover:bg-[#FF5A36] text-[#FFFDF8] font-bold text-xs font-mono tracking-wider uppercase transition-colors"
               >
                 Next Step
               </button>
             ) : (
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-400 hover:to-emerald-400 text-slate-950 font-bold text-xs transition-all shadow-lg shadow-teal-500/20"
+                className="px-6 py-2.5 rounded-xl bg-[#171717] hover:bg-[#FF5A36] text-[#FFFDF8] font-bold text-xs font-mono tracking-wider uppercase transition-colors shadow-md"
               >
                 Publish Idea to Marketplace
               </button>
